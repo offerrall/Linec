@@ -26,7 +26,11 @@ def count_lines(file_path: str) -> int:
     with open(file_path, "r") as file:
         return len(file.readlines())
 
-files_by_type = get_files_by_type("./", valid_extensions=valid_extensions)
+folder = "./"
+full_path = os.path.join(os.getcwd())
+print(f"\nScanning folder: {full_path} \n")
+
+files_by_type = get_files_by_type(folder, valid_extensions=valid_extensions)
 total_lines_count = 0
 
 for ext, files in files_by_type.items():
@@ -34,11 +38,13 @@ for ext, files in files_by_type.items():
         continue
 
     ext_lines_count = 0
+    num_files = len(files)
+    print(f"{ext} files: {num_files}")
     for file in files:
         lines_count = count_lines(file)
         ext_lines_count += lines_count
     
-    print(f"Total lines count for {ext}: {ext_lines_count}")
+    print(f" - Total lines count: {ext_lines_count}\n")
     total_lines_count += ext_lines_count
 
-print(f"Total lines count for all files: {total_lines_count}")
+print(f"\nTotal lines count for all files: {total_lines_count}")
