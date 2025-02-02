@@ -44,11 +44,14 @@ for ext, files in files_by_type.items():
     num_files = len(files)
     print(f"{ext} files: {num_files}")
     for file in files:
-        lines_count = count_lines(file)
-        ext_lines_count += lines_count
+        try:
+            lines_count = count_lines(file)
+            ext_lines_count += lines_count
+        except Exception as e:
+            pass
     
-    print(f" - Total lines count: {ext_lines_count}\n")
+    print(f" - Total lines count: {ext_lines_count:,}\n")
     total_lines_count += ext_lines_count
 
-print(f"\nTotal lines count for all files: {total_lines_count}")
+print(f"\nTotal lines count for all files: {total_lines_count:,}")
 print(f"Time taken: {time() - start_time:.2f} seconds\n")
