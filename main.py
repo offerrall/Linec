@@ -1,5 +1,6 @@
 import os
 from time import time
+import threading
 
 valid_extensions = [".py", ".c", ".cpp", ".h", ".html", ".css", ".js", ".kv"]
 
@@ -27,6 +28,13 @@ def count_lines(file_path: str) -> int:
     with open(file_path, "r") as file:
         return len(file.readlines())
 
+def process_files(files, results, index):
+    try:
+        lines_count = count_lines(files)
+        results[index] = lines_count
+    except Exception as e:
+        results[index] = 0
+
 folder = "./"
 full_path = os.path.join(os.getcwd())
 start_time = time()
@@ -42,14 +50,20 @@ for ext, files in files_by_type.items():
 
     ext_lines_count = 0
     num_files = len(files)
-    print(f"{ext} files: {num_files}")
-    for file in files:
-        try:
-            lines_count = count_lines(file)
-            ext_lines_count += lines_count
-        except Exception as e:
-            pass
+    print(f"{ext} files: {num_files:,}")
     
+    threads = []
+    results = [0] * len(files)
+    
+    for i, file in enumerate(files):
+        thread = threading.Thread(target=process_files, args=(file, results, i))
+        threads.append(thread)
+        thread.start()
+    
+    for thread in threads:
+        thread.join()
+    
+    ext_lines_count = sum(results)
     print(f" - Total lines count: {ext_lines_count:,}\n")
     total_lines_count += ext_lines_count
 
