@@ -1,6 +1,6 @@
 import os
 
-valid_extensions = [".py", ".c", ".cpp", ".h", ".html", ".css", ".js", ".kv"]
+valid_extensions = [".py", ".c", ".cpp", ".h", ".html", ".css", ".js", ".kv", ".cu"]
 
 def get_files_by_type(folder_path: str, valid_extensions: list) -> dict:
     files_dict = {}
