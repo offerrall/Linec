@@ -2,7 +2,10 @@ import os
 from time import time
 import threading
 
-valid_extensions = [".py", ".c", ".cpp", ".h", ".html", ".css", ".js", ".kv", ".cu"]
+valid_extensions = [".py", ".c", ".cpp", ".h", ".html", ".css", ".js", ".kv", ".cu",
+                    ".md", ".txt", ".json", ".xml", ".yaml", ".yml", ".sh", ".bat",
+                    ".cs", ".ts", ".tsx", ".java", ".go", ".rs", ".php", ".swift"]
+
 invalid_folders = ["venv", ".git", "__pycache__", ".pio"]
 
 def get_files_by_type(folder_path: str, valid_extensions: list) -> dict:
@@ -12,7 +15,7 @@ def get_files_by_type(folder_path: str, valid_extensions: list) -> dict:
         files_dict[ext] = []
     
     for root, dirs, files in os.walk(folder_path):
-        # Skip invalid folders
+
         dirs[:] = [d for d in dirs if d not in invalid_folders]
         
         for file in files:
