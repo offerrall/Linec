@@ -6,7 +6,7 @@ valid_extensions = [".py", ".c", ".cpp", ".h", ".html", ".css", ".js", ".kv", ".
                     ".md", ".txt", ".json", ".xml", ".yaml", ".yml", ".sh", ".bat",
                     ".cs", ".ts", ".tsx", ".java", ".go", ".rs", ".php", ".swift"]
 
-invalid_folders = ["venv", ".git", "__pycache__", ".pio"]
+invalid_folders = ["venv", ".git", "__pycache__", ".pio", ".idea", ".vscode", "node_modules", "dist", "build", "out", "tests", "test", "tests", "examples", "docs"]
 
 def get_files_by_type(folder_path: str, valid_extensions: list) -> dict:
     files_dict = {}
